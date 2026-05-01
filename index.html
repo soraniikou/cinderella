@@ -280,8 +280,25 @@
     font-weight: 300;
   }
 
+  .final-song-link {
+    display: none;
+    margin-top: 40px;
+    font-size: 0.85em;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    text-decoration: underline dotted rgba(245, 232, 200, 0.12);
+    text-underline-offset: 5px;
+    transition: color 0.55s ease, text-decoration-color 0.55s ease;
+  }
+
+  .final-song-link:hover {
+    color: rgba(245, 232, 200, 0.82);
+    text-decoration-color: rgba(245, 232, 200, 0.35);
+  }
+
   .restart-btn {
-    margin-top: 56px;
+    margin-top: 40px;
     background: transparent;
     border: 1px solid rgba(200,191,176,0.4);
     color: rgba(245,232,200,0.7);
@@ -403,6 +420,14 @@
   <!-- Stage 5: Final -->
   <div id="stage-final">
     <p class="final-text" id="final-text"></p>
+    <a
+      class="final-song-link"
+      id="final-song-link"
+      href="https://stand.fm/episodes/69e4a1a1a1cca69f435816cf"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="display:none;"
+    >🎵 Listen to the song behind this story</a>
     <button class="restart-btn" id="restart-btn" style="display:none;">once more</button>
   </div>
 
@@ -689,6 +714,7 @@ function animWind() {
       healAudio.play().catch(() => {});
     }, 800);
     typeTextFinal('final-text', 'you have lived through it all\nthat is enough', () => {
+      document.getElementById('final-song-link').style.display = 'inline-block';
       document.getElementById('restart-btn').style.display = 'inline-block';
     });
     return;
@@ -855,6 +881,7 @@ document.getElementById('restart-btn').addEventListener('click', () => {
   windParticles = [];
   windCanvas.style.opacity = '0';
   windCtx.clearRect(0, 0, windCanvas.width, windCanvas.height);
+  document.getElementById('final-song-link').style.display = 'none';
   document.getElementById('restart-btn').style.display = 'none';
   document.body.style.background = 'rgb(13,10,8)';
   document.getElementById('door').classList.remove('door-open');
