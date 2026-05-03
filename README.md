@@ -1,4 +1,10 @@
 🌃 Healing the Past with the New Moon
+Inspiration & Sound
+This app was inspired by the world of Kenshi Yonezu.
+You can listen to the concept a cappella vocal here:
+🎧 Listen to the A cappella on 
+https://stand.fm/episodes/69e4a1a1a1cca69f435816cf
+(Unofficial Cover）
 
 Everyone has painful memories from their past.
 I also had experiences I wanted to forget, but I felt a strong desire to heal my younger self from those times. So, I created this small web application.
