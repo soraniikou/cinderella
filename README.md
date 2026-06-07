@@ -13,7 +13,8 @@ I also had experiences I wanted to forget, but I felt a strong desire to heal my
 1. **Tap the Door** to begin.
 2. **Write down** the pain or memory you wish to let go of, then press the **"Healing"** button.
 3. **A shooting star** will appear along with a gentle message.
-4. **Final Message** to conclude your session.
+4. Final Message　to conclude your session.
+![Screenshot](スクリーンショット%202026-04-17%20140355.png)
 
 [✨ Experience the App Here](https://cinderella310.vercel.app/)
 
