@@ -20,6 +20,8 @@ Take it easy. You don’t have to push yourself—you are doing just fine.
 
 <img src="スクリーンショット 2026-04-17 065410.png" width="45%"> <img src="スクリーンショット 2026-04-17 065458.png" width="45%">
 <img src="スクリーンショット 2026-04-17 070358.png" width="45%"> <img src="スクリーンショット 2026-04-17 070440.png" width="45%">
+<!-- びっくりマーク！6月10日のスクショ -->
+<img src="スクリーンショット%202026-06-10%20115628.png" width="100%" alt="screenshot-0610">
 
 About this App / Privacy Policy
 
