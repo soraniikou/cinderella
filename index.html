@@ -257,6 +257,7 @@
   /* ===== STAGE 5: FINAL ===== */
   #stage-final {
     display: none;
+    position: relative;
     text-align: center;
     animation: fadeIn 3s ease both;
     padding: 0 40px;
@@ -264,7 +265,88 @@
     width: 100%;
   }
 
+  .final-celestial {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .final-moon,
+  .final-star {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+  }
+
+  .final-celestial.active .final-moon {
+    animation: moonDrift 30s ease-in-out forwards, celestialFade 5s ease forwards;
+  }
+
+  .final-celestial.active .final-star {
+    animation: starDrift 30s ease-in-out forwards, celestialFade 5s ease forwards;
+  }
+
+  .final-moon {
+    width: clamp(72px, 16vmin, 132px);
+    height: clamp(72px, 16vmin, 132px);
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 34% 42%,
+      rgba(255, 248, 238, 0.48),
+      rgba(245, 232, 200, 0.22) 54%,
+      rgba(232, 213, 176, 0.08) 68%,
+      transparent 72%
+    );
+    -webkit-mask-image: radial-gradient(circle at 68% 50%, transparent 46%, black 48%);
+    mask-image: radial-gradient(circle at 68% 50%, transparent 46%, black 48%);
+    filter: drop-shadow(0 0 32px rgba(245, 232, 200, 0.14));
+  }
+
+  .final-star {
+    width: clamp(14px, 3vmin, 22px);
+    height: clamp(14px, 3vmin, 22px);
+  }
+
+  .final-star::before,
+  .final-star::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 248, 238, 0.95);
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(255, 248, 238, 0.9), 0 0 26px rgba(245, 232, 200, 0.45);
+  }
+
+  .final-star::before {
+    width: 2px;
+    height: 140%;
+  }
+
+  .final-star::after {
+    width: 140%;
+    height: 2px;
+  }
+
+  .final-star-spark {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(245, 232, 200, 0.85) 28%,
+      transparent 68%
+    );
+    box-shadow: 0 0 12px rgba(255, 248, 238, 0.95), 0 0 36px rgba(245, 232, 200, 0.35);
+  }
+
   .final-text {
+    position: relative;
+    z-index: 1;
     font-size: clamp(18px, 5vw, 26px);
     font-weight: 300;
     letter-spacing: 0.18em;
@@ -281,6 +363,8 @@
   }
 
   .restart-btn {
+    position: relative;
+    z-index: 1;
     margin-top: 56px;
     background: transparent;
     border: 1px solid rgba(200,191,176,0.4);
@@ -342,6 +426,21 @@
     0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
     40% { opacity: 0.8; transform: scale(1.2); }
   }
+
+  @keyframes moonDrift {
+    from { transform: translate(calc(-50% - 44vw), calc(-50% - 40vh)); }
+    to   { transform: translate(calc(-50% - 10vw), calc(-50% - 30vh)); }
+  }
+
+  @keyframes starDrift {
+    from { transform: translate(calc(-50% + 46vw), calc(-50% + 38vh)); }
+    to   { transform: translate(calc(-50% + 8vw), calc(-50% - 34vh)); }
+  }
+
+  @keyframes celestialFade {
+    from { opacity: 0; }
+    to   { opacity: 0.72; }
+  }
 </style>
 </head>
 <body>
@@ -402,6 +501,10 @@
 
   <!-- Stage 5: Final -->
   <div id="stage-final">
+    <div class="final-celestial" aria-hidden="true">
+      <div class="final-moon"></div>
+      <div class="final-star"><span class="final-star-spark"></span></div>
+    </div>
     <p class="final-text" id="final-text"></p>
     <button class="restart-btn" id="restart-btn" style="display:none;">once more</button>
   </div>
@@ -668,6 +771,14 @@ function spawnStarBatch(elapsed) {
   }
 }
 
+function startFinalCelestial() {
+  const celestial = document.querySelector('.final-celestial');
+  if (!celestial) return;
+  celestial.classList.remove('active');
+  void celestial.offsetWidth;
+  celestial.classList.add('active');
+}
+
 function animWind() {
   if (!windActive) return;
   windCtx.clearRect(0, 0, windCanvas.width, windCanvas.height);
@@ -684,6 +795,7 @@ function animWind() {
     windCtx.clearRect(0, 0, windCanvas.width, windCanvas.height);
     windParticles = [];
     showStage('stage-final');
+    startFinalCelestial();
     startPurpleFade();
     setTimeout(() => {
       healAudio.play().catch(() => {});
@@ -855,6 +967,7 @@ document.getElementById('restart-btn').addEventListener('click', () => {
   windParticles = [];
   windCanvas.style.opacity = '0';
   windCtx.clearRect(0, 0, windCanvas.width, windCanvas.height);
+  document.querySelector('.final-celestial')?.classList.remove('active');
   document.getElementById('restart-btn').style.display = 'none';
   document.body.style.background = 'rgb(13,10,8)';
   document.getElementById('door').classList.remove('door-open');
