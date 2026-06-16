@@ -770,9 +770,6 @@ function animWind() {
     showStage('stage-final');
     startFinalCelestial();
     startPurpleFade();
-    setTimeout(() => {
-      healAudio.play().catch(() => {});
-    }, 800);
     typeTextFinal('final-text', 'you have lived through it all\nthat is enough', () => {
       document.getElementById('restart-btn').style.display = 'inline-block';
     });
